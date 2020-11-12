@@ -1,4 +1,4 @@
-interface Posts {
+export interface Posts {
   id: number;
   description: string;
   likes: number;
@@ -55,13 +55,18 @@ const data = [
         photoUrl:
           "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
       },
+      {
+        id: 3,
+        photoUrl:
+          "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+      },
     ],
   },
   {
     id: 2,
-    name: "Jessy",
+    name: "Henry",
     profilePhotoUrl:
-      "https://i.pinimg.com/originals/67/2d/83/672d83879a7e2da4e886c72db668c7ab.jpg",
+      "https://observatoriodocinema.uol.com.br/wp-content/uploads/2020/02/henry-cavill-007-bode-na-sala.jpg",
     followers: 25000,
     posts: [
       {
@@ -87,7 +92,12 @@ const data = [
     ],
     stories: [
       {
-        id: 2,
+        id: 4,
+        photoUrl:
+          "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+      },
+      {
+        id: 5,
         photoUrl:
           "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
       },

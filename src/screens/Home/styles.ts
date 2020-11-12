@@ -5,20 +5,13 @@ const { width, height } = Dimensions.get("window");
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
   background-color: #000000;
-  padding-top: 54px;
+  padding-top: 44px;
 `;
 
 export const Logo = styled.Image`
   width: 150px;
   height: 150px;
-`;
-
-export const Header = styled.View`
-  align-items: center;
-  justify-content: space-between;
-  width: ${width}px;
 `;
 
 export const Title = styled.Text`
@@ -30,9 +23,18 @@ export const List = styled.FlatList`
   flex-grow: 1;
 `;
 
+export const StoriesList = styled.FlatList`
+  flex-direction: row;
+`;
+
 export const ListContainer = styled.View``;
 
 export const StoriesContainer = styled.View`
   flex-direction: row;
-  padding-horizontal: 10px;
+  padding-horizontal: 5px;
+  margin-top: 5px;
+`;
+
+export const Row = styled.View`
+  flex-direction: row;
 `;

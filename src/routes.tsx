@@ -14,7 +14,8 @@ function Routes() {
           showLabel: false,
           style: {
             backgroundColor: "#000000",
-            height: 95,
+            height: 80,
+            paddingBottom: 5,
             borderTopLeftRadius: 40,
             borderTopRightRadius: 40,
             position: "absolute",

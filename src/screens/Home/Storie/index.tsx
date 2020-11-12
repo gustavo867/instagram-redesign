@@ -1,5 +1,4 @@
 import React from "react";
-import { Text, View } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
 import * as S from "./styles";
@@ -9,6 +8,7 @@ interface Props {
   label?: string;
   photo?: string;
   profilePhoto?: string;
+  haveStories?: boolean;
 }
 
 const Storie: React.FC<Props> = ({
@@ -16,6 +16,7 @@ const Storie: React.FC<Props> = ({
   label,
   photo,
   profilePhoto,
+  haveStories,
 }) => {
   if (createStory) {
     return (
@@ -23,14 +24,18 @@ const Storie: React.FC<Props> = ({
         <S.Circle>
           <AntDesign name="plus" size={18} color="#FFFF" />
         </S.Circle>
-        <S.Label>Create Story</S.Label>
+        <S.Label>My Story</S.Label>
       </S.CreateContainer>
     );
   }
 
   return (
     <S.Container>
-      <Text>{label}</Text>
+      <S.StorieCircle stories={haveStories}>
+        <S.Image source={{ uri: profilePhoto }} />
+      </S.StorieCircle>
+
+      <S.Label>{label}</S.Label>
     </S.Container>
   );
 };
