@@ -1,13 +1,18 @@
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import styled from "styled-components/native";
+import Constants from "expo-constants";
 
 const { width, height } = Dimensions.get("window");
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
   background-color: #000000;
-  padding-top: 44px;
+  padding-top: ${Platform.OS === "android"
+    ? Constants.statusBarHeight - 5
+    : 0}px;
 `;
+
+export const Scroll = styled.ScrollView``;
 
 export const Logo = styled.Image`
   width: 150px;

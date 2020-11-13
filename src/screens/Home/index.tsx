@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "./styles";
 
 import Header from "../../components/Header";
 import data, { Data } from "../../utils";
 import Storie from "./Storie";
 import Post from "./Post";
+import { LogBox } from "react-native";
 
 interface ItemProps {
   item: Data;
@@ -17,6 +18,7 @@ const Home: React.FC = () => {
       <S.ListContainer
         style={{
           marginTop: index !== 0 ? -20 : 0,
+          marginBottom: index === data.length - 1 ? 80 : 0,
         }}
       >
         <Post
@@ -41,30 +43,36 @@ const Home: React.FC = () => {
     );
   };
 
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists"]);
+  }, []);
+
   return (
     <S.Container>
-      <Header />
-      <S.StoriesContainer>
-        <Storie createStory={true} />
-        <S.StoriesList
+      <S.Scroll>
+        <Header />
+        <S.StoriesContainer>
+          <Storie createStory={true} />
+          <S.StoriesList
+            data={data}
+            renderItem={({ item, index }: any) => <StorieItem {...item} />}
+            keyExtractor={(item: any) => item.id.toString().trim()}
+            contentContainerStyle={{
+              flexDirection: "row",
+            }}
+          />
+        </S.StoriesContainer>
+        <S.List
           data={data}
-          renderItem={({ item, index }: any) => <StorieItem {...item} />}
+          renderItem={({ item, index }: any) => (
+            <Item item={item} index={index} />
+          )}
           keyExtractor={(item: any) => item.id.toString().trim()}
-          contentContainerStyle={{
-            flexDirection: "row",
+          style={{
+            marginTop: 20,
           }}
         />
-      </S.StoriesContainer>
-      <S.List
-        data={data}
-        renderItem={({ item, index }: any) => (
-          <Item item={item} index={index} />
-        )}
-        keyExtractor={(item: any) => item.id.toString().trim()}
-        style={{
-          marginTop: 20,
-        }}
-      />
+      </S.Scroll>
     </S.Container>
   );
 };

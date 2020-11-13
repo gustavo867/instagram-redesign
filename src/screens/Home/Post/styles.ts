@@ -20,10 +20,16 @@ export const Container = styled.View`
 `;
 
 export const List = styled.FlatList.attrs({
-  horizontal: true,
+  horizontal: false,
 })`
   flex-grow: 0;
   margin: 0;
+`;
+
+export const Scroll = styled.ScrollView.attrs({
+  horizontal: true,
+})`
+  flex-grow: 1;
 `;
 
 export const Image = styled.Image`
