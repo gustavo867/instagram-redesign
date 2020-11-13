@@ -1,24 +1,48 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Posts } from "../../../utils";
-import { AntDesign, Feather } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Feather,
+  MaterialCommunityIcons,
+  Entypo,
+} from "@expo/vector-icons";
 import * as S from "./styles";
+import { View } from "react-native";
 
 interface Props {
   name: string;
-  posts: Posts[];
+  posts: Posts;
   profilePhoto: string;
+  index: number;
 }
 
 interface ItemProps {
   item: Posts;
-  index: number;
 }
 
-const Post: React.FC<Props> = ({ name, posts, profilePhoto }) => {
-  const Item = ({ item, index }: ItemProps) => {
+const Post: React.FC<Props> = ({ name, posts, profilePhoto, index }) => {
+  const Item = ({ item }: ItemProps) => {
+    const [selected, setSelected] = useState<
+      "likes" | "comments" | undefined
+    >();
+
+    const selectHeart = useCallback(() => {
+      setSelected((prevState) => (prevState === "likes" ? undefined : "likes"));
+    }, [selected]);
+
+    const selectComments = useCallback(() => {
+      setSelected((prevState) =>
+        prevState === "comments" ? undefined : "comments"
+      );
+    }, [selected]);
+
     return (
       <S.Container>
-        <S.Image source={{ uri: item.post[1] }} />
+        <S.Images pagingEnabled>
+          {item.post.map((item: string, index: number) => (
+            <S.Image key={index} source={{ uri: item }} />
+          ))}
+        </S.Images>
         <S.TopContainer>
           <S.ProfilePhoto
             source={{
@@ -29,8 +53,41 @@ const Post: React.FC<Props> = ({ name, posts, profilePhoto }) => {
         </S.TopContainer>
         <S.BottomContainer>
           <S.IconsContainer>
+            <S.Button
+              delayPressIn={1}
+              style={{
+                backgroundColor: selected
+                  ? selected === "likes"
+                    ? "rgba(96, 91, 116, 0.4)"
+                    : ""
+                  : "rgba(96, 91, 116, 0.1)",
+              }}
+              onPress={selectHeart}
+            >
+              <AntDesign name="heart" size={18} color="#FFF" />
+              <S.SmallText>{item.likes}</S.SmallText>
+            </S.Button>
+            <S.Button
+              delayPressIn={1}
+              style={{
+                backgroundColor: selected
+                  ? selected === "comments"
+                    ? "rgba(96, 91, 116, 0.4)"
+                    : ""
+                  : "rgba(96, 91, 116, 0.1)",
+              }}
+              onPress={selectComments}
+            >
+              <MaterialCommunityIcons
+                name="chat-processing"
+                size={20}
+                color="#FFF"
+              />
+              <S.SmallText>{item.comments}</S.SmallText>
+            </S.Button>
             <S.Button>
-              <AntDesign name="heart" size={24} color="#FFF" />
+              <Entypo name="direction" size={18} color="#FFF" />
+              <View />
             </S.Button>
           </S.IconsContainer>
           <Feather name="bookmark" size={24} color="#FFF" />
@@ -41,16 +98,7 @@ const Post: React.FC<Props> = ({ name, posts, profilePhoto }) => {
 
   return (
     <S.PostsContainer>
-      <S.List
-        data={posts}
-        renderItem={({ item, index }: any) => (
-          <Item item={item} index={index} />
-        )}
-        keyExtractor={(item: any) => item.id.toString().trim()}
-        contentContainerStyle={{
-          margin: 0,
-        }}
-      />
+      <Item item={posts} />
     </S.PostsContainer>
   );
 };

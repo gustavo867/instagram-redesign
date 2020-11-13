@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import * as S from "./styles";
 
 import Header from "../../components/Header";
-import data, { Data } from "../../utils";
+import data, { Data, Posts } from "../../utils";
 import Storie from "./Storie";
 import Post from "./Post";
 import { LogBox } from "react-native";
+import posts from "../../utils/posts";
 
 interface ItemProps {
-  item: Data;
+  item: Posts;
   index: number;
 }
 
@@ -17,14 +18,15 @@ const Home: React.FC = () => {
     return (
       <S.ListContainer
         style={{
-          marginTop: index !== 0 ? -20 : 0,
-          marginBottom: index === data.length - 1 ? 80 : 0,
+          marginTop: item.id !== 1 ? -20 : 0,
+          marginBottom: index === posts.length - 1 ? 80 : 0,
         }}
       >
         <Post
           name={item.name}
-          posts={item.posts}
-          profilePhoto={item.profilePhotoUrl}
+          posts={item}
+          profilePhoto={item.profilePhoto}
+          index={index}
         />
       </S.ListContainer>
     );
@@ -49,7 +51,7 @@ const Home: React.FC = () => {
 
   return (
     <S.Container>
-      <S.Scroll>
+      <S.Scroll showsVerticalScrollIndicator={false}>
         <Header />
         <S.StoriesContainer>
           <Storie createStory={true} />
@@ -63,7 +65,7 @@ const Home: React.FC = () => {
           />
         </S.StoriesContainer>
         <S.List
-          data={data}
+          data={posts}
           renderItem={({ item, index }: any) => (
             <Item item={item} index={index} />
           )}

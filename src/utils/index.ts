@@ -1,6 +1,9 @@
 export interface Posts {
   id: number;
   description: string;
+  name: string;
+  personId: number;
+  profilePhoto: string;
   likes: number;
   comments: number;
   post: string[];
